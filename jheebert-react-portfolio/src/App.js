@@ -3,7 +3,6 @@ import "./App.css";
 // Import components
 import NavBar from "./components/navBar/navBar";
 import About from "./components/about/about";
-import Skills from "./components/skills/skills";
 import Portfolio from "./components/portfolio/portfolio";
 import Contact from "./components/contact/contact";
 import Footer from "./components/footer/footer";
@@ -27,7 +26,6 @@ function App() {
         </Container>
       </Parallax>
       <About />
-      <Skills />
       <Portfolio />
       <Contact />
       <Footer />
