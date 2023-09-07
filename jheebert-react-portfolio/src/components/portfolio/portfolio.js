@@ -87,7 +87,7 @@ const PortfolioDetails = ({
 );
 
 // Portfolio TimeLine component to render the portfolio section
-const PortfolioTimeline = () => {
+const Portfolio = () => {
     return (
         <div id="portfolio">
             <h1 className=" pt-3 text-center font-details-b pb-3">Portfolio</h1>
@@ -228,4 +228,4 @@ const PortfolioTimeline = () => {
                 </div>
                 );
             };
-            export default PortfolioTimeline;
+            export default Portfolio;
