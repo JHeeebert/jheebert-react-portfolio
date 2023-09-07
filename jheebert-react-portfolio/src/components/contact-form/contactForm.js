@@ -1,11 +1,35 @@
 import React, { useState } from "react";
 import "./contactForm.css";
 import Swal from "sweetalert2";
-// Create validation function for email address
-const validateEmail = (email) => {
-    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+// Define input fields dynamically
+const inputFields = [
+    {
+        name: "name",
+        type: "text",
+        placeholder: "Name",
+    },
+    {
+        name: "email",
+        type: "email",
+        placeholder: "Email",
+    },
+    {
+        name: "phoneNumber",
+        type: "tel",
+        placeholder: "Phone Number",
+    },
+    {
+        name: "message",
+        type: "text",
+        placeholder: "Message",
+    },
+];
+// Create a Resusable error message component
+const ErrorMessage = ({ message }) => {
+    return message ? <p className="errorMessage">{message}</p> : null;
 };
-function ContactForm() {
+// Create ContactForm
+const ContactForm = () => {
     const initialState = {
         name: "",
         email: "",
@@ -27,9 +51,15 @@ function ContactForm() {
             [name]: inputValue,
         });
     };
+    // Reset formState to initial state
+    const resetForm = () => {
+        setFormState(initialState);
+        setErrorMessage("");
+    };
     // Handle form submit
     const handleFormSubmit = (e) => {
         e.preventDefault();
+    }
         const { name, email, phoneNumber, message } = formState;
         // Check if form has everything
         if (!name || !email || !message) {
@@ -43,53 +73,48 @@ function ContactForm() {
         }
         // Check if phone number is valid
         if (phoneNumber.length !== 10) {
-            setErrorMessage("Please enter a valid 10-digit phone number.");
+            setErrorMessage("Please enter a valid phone number.");
             return;
         }
         // Check if message is valid
-        if (message.length < 5) {
-            setErrorMessage("Please enter a valid message of atleast 5 characters.");
+        if (message.length < 10) {
+            setErrorMessage("Please enter a valid message.");
             return;
         }
         // If all is well, send the data to the server
         setErrorMessage("");
-        setFormState(initialState);
+        resetForm();
         Swal.fire({
-            title: "Message Sent!",
-            text: "Thank you for reaching out to me. I will get back to you as soon as possible.",
+            title: "Thank you!",
+            text: "Thank you for contacting us. We will get back to you as soon as possible.",
             icon: "success",
-            confirmButtonText: "OK",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Close",
         });
+        return (
+            <div className="contact-form">
+                <h1 className="pt-3 text-center font-details-b pb-3">CONTACT ME</h1>
+                <form id="contact-form" onSubmit={handleFormSubmit}>
+                    {inputFields.map((inputField) => (
+                        <div className="form-group" key={inputField.name}>
+                        <label htmlFor={inputField.name}>{inputField.label}</label>
+                        {inputField.type === "textarea" ? (
+                            <textarea className="form-control" name={inputField.name} rows="5" value={formState[inputField.name]} onBlur={handleInputChange} />
+                        ) : (
+                            <input type={inputField.type} className="form-control" name={inputField.name} value={formState[inputField.name]} onBlur={handleInputChange} />
+                        )}
+                        </div>
+                    ))}
+                    <ErrorMessage message={errorMessage} />
+                    <button type="submit" className="btn btn-primary btn-lg btn-block">Submit</button>
+                </form>
+            </div>
+        );
     };
-    return (
-        <div className="contact-form">
-            <h1 className="pt-3 text-center font-details-b pb-3">CONTACT ME</h1>
-            <form id="contact-form" onSubmit={handleFormSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" className="form-control" name="name" defaultValue={formState.name} onBlur={handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email address:</label>
-                    <input type="email" className="form-control" name="email" defaultValue={formState.email} onBlur={handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">Phone Number:</label>
-                    <input type="tel" className="form-control" name="phoneNumber" defaultValue={formState.phoneNumber} onBlur={handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="message">Message:</label>
-                    <textarea className="form-control" name="message" rows="5" defaultValue={formState.message} onBlur={handleInputChange} />
-                </div>
-                {errorMessage && (
-                    <div>
-                        <p className="error-text">{errorMessage}</p>
-                    </div>
-                )}
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    );
-}
+// Validate email address
+const validateEmail = (email) => {
+    const re = /^(([^<>()\\.,;:\s@"]+(\.[^<>()\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
 
 export default ContactForm;
