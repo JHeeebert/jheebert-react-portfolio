@@ -1,23 +1,23 @@
 import React from "react";
 import "./App.css";
+// Import components
 import NavBar from "./components/navBar/navBar";
-import CustomCarousel from "./components/carousel/carousel";
 import About from "./components/about/about";
-import { Parallax } from "react-parallax";
-import Fade from "react-reveal/Fade";
-import Slide from "react-reveal/Slide";
-import Container from "react-bootstrap/Container";
 import Skills from "./components/skills/skills";
-import Projects from "./components/portfolio/portfolio";
+import Portfolio from "./components/portfolio/portfolio";
 import Contact from "./components/contact/contact";
 import Footer from "./components/footer/footer";
-
-// App component to render the entire application
+import CustomCarousel from "./components/carousel/carousel";
+import { Parallax } from "react-parallax";
+import { Container } from "react-bootstrap";
+import { Fade, Slide } from "react-reveal";
+// Configuration variables
+const backgroundImage = require("./assets/img/background/background.jpg");
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Parallax bgImage={require("./assets/img/background/background.jpg")} bgImageAlt="background">
+      <Parallax bgImage={backgroundImage} bgImageAlt="background">
         <Container>
           <Fade left>
             <Slide bottom>
@@ -28,11 +28,11 @@ function App() {
       </Parallax>
       <About />
       <Skills />
-      <Projects />
+      <Portfolio />
       <Contact />
       <Footer />
     </div>
   );
 }
-
+// Exporting the component
 export default App;
