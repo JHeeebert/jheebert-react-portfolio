@@ -1,0 +1,19 @@
+.accordion-main {
+    cursor: grab;
+    display: inline-block;
+    webkit-text-decoration: none;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: coral;
+    border: none;
+    border-radius: 4px;
+    padding: auto;
+    color: cornflowerblue;
+}
+.list-style-type {
+    list-style-type: square;
+}
+.image-style-type {
+    width: 100%;
+}
