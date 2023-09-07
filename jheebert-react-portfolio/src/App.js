@@ -6,25 +6,15 @@ import About from "./components/about/about";
 import Portfolio from "./components/portfolio/portfolio";
 import Contact from "./components/contact/contact";
 import Footer from "./components/footer/footer";
-import CustomCarousel from "./components/carousel/carousel";
-import { Parallax } from "react-parallax";
 import { Container } from "react-bootstrap";
-import { Fade, Slide } from "react-reveal";
-// Configuration variables
-const backgroundImage = require("./assets/img/background/background.jpg");
+
+// App component
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Parallax bgImage={backgroundImage} bgImageAlt="background">
         <Container>
-          <Fade left>
-            <Slide bottom>
-              <CustomCarousel />
-            </Slide>
-          </Fade>
         </Container>
-      </Parallax>
       <About />
       <Portfolio />
       <Contact />
